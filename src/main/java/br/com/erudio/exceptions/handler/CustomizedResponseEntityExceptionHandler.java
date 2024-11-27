@@ -11,7 +11,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import br.com.erudio.exceptions.ExceptionResponse;	//My body exception created who returns a JSON
-import br.com.erudio.exceptions.UnsupportedMathOperation;
+import br.com.erudio.exceptions.ResourceNotFoundException;
 
 //Errors handler, who determines what file is the corresponding error
 
@@ -25,10 +25,10 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
 		return new ResponseEntity<>(exceptionResponse, HttpStatus.INTERNAL_SERVER_ERROR);	//exceptionResponse is the return for the user		HttpStatus.INTERNAL_SERVER_ERROR is the type of error
 	}
 	
-	@ExceptionHandler(UnsupportedMathOperation.class)
-	public final ResponseEntity<ExceptionResponse> handleBadRequestException(Exception ex, WebRequest request) { 
+	@ExceptionHandler(ResourceNotFoundException.class)
+	public final ResponseEntity<ExceptionResponse> handleNotFoundException(Exception ex, WebRequest request) { 
 		ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ex.getMessage(), request.getDescription(false));
 		
-		return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_FOUND);
 	}
 }
