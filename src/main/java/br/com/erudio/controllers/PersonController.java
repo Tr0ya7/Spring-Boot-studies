@@ -19,7 +19,7 @@ import br.com.erudio.data.vo.v2.PersonVOV2;
 import br.com.erudio.services.PersonServices;
 
 @RestController
-@RequestMapping("/person")
+@RequestMapping("/person/v1")
 public class PersonController {
 	@Autowired	//For this annotation is required the annotation @Service in the class called	//Use this annotation instead initialize a new object
 	private PersonServices personService;
