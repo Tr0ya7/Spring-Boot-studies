@@ -26,7 +26,7 @@ public class PersonServices {
 	
 	public PersonVO create(PersonVO person) {
 		logger.info("Create one person!");
-		Person entity = DozerMapper.parseObject(person, Person.class);			
+		Person entity = DozerMapper.parseObject(person, Person.class);
 		return DozerMapper.parseObject(repository.save(entity), PersonVO.class);	//Send the info in Person object but send to user view a type object PersonVO
 	}
 	

@@ -34,17 +34,17 @@ public class PersonController {
 		return personService.findById(id);
 	};
 	
-	@PostMapping(consumes = MediaType.APPLICATION_JSON, produces = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML })
+	@PostMapping(consumes = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML }, produces = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML })
 	public PersonVO create(@RequestBody PersonVO person) {	//This annotation is for get the send body of request
 		return personService.create(person);
 	};
 	
-	@PostMapping(value = "/v2", consumes = MediaType.APPLICATION_JSON, produces = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML })
+	@PostMapping(value = "/v2", consumes = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML }, produces = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML })
 	public PersonVOV2 createV2(@RequestBody PersonVOV2 person) {	//This annotation is for get the send body of request
 		return personService.createV2(person);
 	};
 	
-	@PutMapping(consumes = MediaType.APPLICATION_JSON, produces = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML })
+	@PutMapping(consumes = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML }, produces = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML })
 	public PersonVO update(@RequestBody PersonVO person) {
 		return personService.update(person);
 	};

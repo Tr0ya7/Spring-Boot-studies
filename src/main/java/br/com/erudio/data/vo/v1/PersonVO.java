@@ -20,8 +20,6 @@ public class PersonVO implements Serializable {
 	private String lastName;
 	
 	private String address;
-	
-	@JsonIgnore
 	private String gender;
 	
 	public PersonVO() {}
