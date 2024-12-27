@@ -10,25 +10,35 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import br.com.erudio.exceptions.ExceptionResponse;	//My body exception created who returns a JSON
+import br.com.erudio.exceptions.ExceptionResponse;
 import br.com.erudio.exceptions.ResourceNotFoundException;
 
-//Errors handler, who determines what file is the corresponding error
-
-@ControllerAdvice //Global treatment of errors if the error in specific is'nt treated
+@ControllerAdvice
 @RestController
-public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
-	@ExceptionHandler(Exception.class)	//This annotation show when this method is executed, in this case aways ocurrent a default Exception independent which your specific type
-	public final ResponseEntity<ExceptionResponse> handleAllException(Exception ex, WebRequest request) {	//Method who return a ResponseEntity<ExceptionResponse> 
-		ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ex.getMessage(), request.getDescription(false));
+public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExceptionHandler{
+	
+	@ExceptionHandler(Exception.class)
+	public final ResponseEntity<ExceptionResponse> handleAllExceptions(
+			Exception ex, WebRequest request) {
 		
-		return new ResponseEntity<>(exceptionResponse, HttpStatus.INTERNAL_SERVER_ERROR);	//exceptionResponse is the return for the user		HttpStatus.INTERNAL_SERVER_ERROR is the type of error
+		ExceptionResponse exceptionResponse = new ExceptionResponse(
+				new Date(),
+				ex.getMessage(),
+				request.getDescription(false));
+		
+		return new ResponseEntity<>(exceptionResponse, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
 	@ExceptionHandler(ResourceNotFoundException.class)
-	public final ResponseEntity<ExceptionResponse> handleNotFoundException(Exception ex, WebRequest request) { 
-		ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ex.getMessage(), request.getDescription(false));
+	public final ResponseEntity<ExceptionResponse> handleNotFoundExceptions(
+			Exception ex, WebRequest request) {
+		
+		ExceptionResponse exceptionResponse = new ExceptionResponse(
+				new Date(),
+				ex.getMessage(),
+				request.getDescription(false));
 		
 		return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_FOUND);
 	}
+
 }
