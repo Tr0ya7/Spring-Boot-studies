@@ -1,7 +1,6 @@
 package br.com.erudio.model;
 
 import java.io.Serializable;
-import java.util.Objects;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -10,25 +9,23 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
-//Created the whole database
-
-@Entity	//Show for the application that class is in the database
-@Table(name = "person")	//Show for the application how table this @Entite is associate	//Isn't commonly used when the name of class is the exactly name of the table associated
+@Entity
+@Table(name = "person")
 public class Person implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)	//Show for the application that is a generated value and how way is that generated
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(name = "first_name", nullable = false, length = 80)	//nullable argument show the field can't be null/empty
+	@Column(name = "first_name", nullable = false, length = 80)
 	private String firstName;
-	
+
 	@Column(name = "last_name", nullable = false, length = 80)
 	private String lastName;
 	
-	@Column(nullable = false, length = 100)	//Just isn't commonly use the again the variable name in the annotation @Column when is the both same
-	private String address; 
+	@Column(nullable = false, length = 100)
+	private String address;
 	
 	@Column(nullable = false, length = 6)
 	private String gender;
@@ -43,20 +40,20 @@ public class Person implements Serializable {
 		this.id = id;
 	}
 
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
 	public String getFirstName() {
 		return firstName;
 	}
 
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
 	public String getAddress() {
@@ -77,7 +74,14 @@ public class Person implements Serializable {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(address, firstName, gender, id, lastName);
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((address == null) ? 0 : address.hashCode());
+		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
+		result = prime * result + ((gender == null) ? 0 : gender.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
+		return result;
 	}
 
 	@Override
@@ -89,8 +93,31 @@ public class Person implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Person other = (Person) obj;
-		return Objects.equals(address, other.address) && Objects.equals(firstName, other.firstName)
-				&& Objects.equals(gender, other.gender) && Objects.equals(id, other.id)
-				&& Objects.equals(lastName, other.lastName);
+		if (address == null) {
+			if (other.address != null)
+				return false;
+		} else if (!address.equals(other.address))
+			return false;
+		if (firstName == null) {
+			if (other.firstName != null)
+				return false;
+		} else if (!firstName.equals(other.firstName))
+			return false;
+		if (gender == null) {
+			if (other.gender != null)
+				return false;
+		} else if (!gender.equals(other.gender))
+			return false;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (lastName == null) {
+			if (other.lastName != null)
+				return false;
+		} else if (!lastName.equals(other.lastName))
+			return false;
+		return true;
 	}
 }
